@@ -9,14 +9,18 @@ It also disables 'cmp' for the buffer (if it is installed).
 Using [lazy.nvim]
 
 ```lua
-return { "skeletony007/private-mode.nvim" }
+return {
+    "skeletony007/private-mode.nvim",
+
+    config = true,
+}
 ```
 
 ### Setup
 
 ```lua
 require("private-mode").setup({
-    file_patterns = { "*/pass.*/*" }
+    file_patterns = { "*/pass.*/*" },
 })
 ```
 
