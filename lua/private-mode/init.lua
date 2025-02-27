@@ -3,14 +3,12 @@ local private_mode_global_group = vim.api.nvim_create_augroup("PrivateModeGlobal
 
 -- In case cmp is lazy loaded, we check :CmpStatus instead of a pcall to require
 -- so we maintain the lazy load.
-local function has_cmp()
-    return vim.fn.exists(':CmpStatus') > 0
-end
+local function has_cmp() return vim.fn.exists(":CmpStatus") > 0 end
 
 -- <https://vi.stackexchange.com/questions/6177/the-simplest-way-to-start-vim-in-private-mode>
 local function private_mode()
     if has_cmp() then
-        require('cmp').setup.buffer({ enabled = false })
+        require("cmp").setup.buffer({ enabled = false })
     end
 
     vim.opt_local.history = 0
@@ -33,13 +31,15 @@ end
 
 vim.api.nvim_create_user_command("PrivateModeStart", private_mode, {})
 vim.api.nvim_create_user_command("PrivateModeStartGlobal", private_mode_global, {})
-vim.api.nvim_create_user_command("IncognitoStopGlobal", function()
-    vim.api.nvim_del_augroup_by_id(private_mode_global_group)
-end, {})
+vim.api.nvim_create_user_command(
+    "PrivateModeStopGlobal",
+    function() vim.api.nvim_del_augroup_by_id(private_mode_global_group) end,
+    {}
+)
 
 M = {
     opts = {
-        file_patterns = {}
+        file_patterns = {},
     },
 }
 
